@@ -1,0 +1,3 @@
+Descargamos la dependencias con:
+    npm install
+
