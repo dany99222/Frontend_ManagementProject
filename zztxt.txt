@@ -1,3 +1,6 @@
 Descargamos la dependencias con:
     npm install
 
+Instalamos react router dom
+    Nos servira para manejar la navegacion y las rutas
+        npm i react-router-dom
