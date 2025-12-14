@@ -4,3 +4,7 @@ Descargamos la dependencias con:
 Instalamos react router dom
     Nos servira para manejar la navegacion y las rutas
         npm i react-router-dom
+
+Instalamos los types de node
+    npm i -D @types/node
+        Posteriormente habilitamos en vite.config y en tsconfig.app.json
