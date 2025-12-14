@@ -8,3 +8,9 @@ Instalamos react router dom
 Instalamos los types de node
     npm i -D @types/node
         Posteriormente habilitamos en vite.config y en tsconfig.app.json
+
+instalamos headles ui y heroicons 
+    headeles trae componentes interactivos
+        npm i @headlessui/react @heroicons/react
+
+   
