@@ -17,4 +17,9 @@ instalamos headles ui y heroicons
     npm i react-hook-form
 
 instalamos zod
-    npm i zod
+    Para la creacion de Shemas de datos y types
+        npm i zod
+
+Instalamos axios
+    se usa para hacer solicitudes HTTPS 
+        npm i axios
