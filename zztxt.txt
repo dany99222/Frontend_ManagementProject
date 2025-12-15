@@ -13,4 +13,5 @@ instalamos headles ui y heroicons
     headeles trae componentes interactivos
         npm i @headlessui/react @heroicons/react
 
-   
+ instalamos hook form
+    npm i react-hook-form

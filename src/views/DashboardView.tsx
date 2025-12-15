@@ -4,7 +4,7 @@ export default function DashboardView() {
     <>
       <h1 className="text-5xl font-black">Mis Proyectos </h1>
       <p className="text-2xl font-light text-gray-500 mt-5">
-        Administra tus Proyectos
+        Administra Tus Proyectos
       </p>
       <nav className="my-5">
         <Link
