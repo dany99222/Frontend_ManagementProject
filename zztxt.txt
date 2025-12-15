@@ -15,3 +15,6 @@ instalamos headles ui y heroicons
 
  instalamos hook form
     npm i react-hook-form
+
+instalamos zod
+    npm i zod
