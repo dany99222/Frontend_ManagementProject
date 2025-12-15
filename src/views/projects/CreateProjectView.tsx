@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ProjectForm from "@/components/projects/ProjectForm";
 import type { ProjectFormData } from "@/types/index";
 import { createProject } from "@/api/ProjectAPI";
 
 export default function CreateProjectView() {
+
+  const navigate = useNavigate(); // para redireccionar al usuario una vez creado el proyecto
+
   const initialValues: ProjectFormData = {
     projectName: "",
     clientName: "",
@@ -17,10 +20,10 @@ export default function CreateProjectView() {
     formState: { errors }, //Ahi estan los errores de validacion
   } = useForm({ defaultValues: initialValues });
 
-  const handleForm = (data: ProjectFormData) => {
-    
+  const handleForm = async (data: ProjectFormData) => {
     // llamada a la api
-    createProject(data);
+    await createProject(data);
+    navigate('/')
   };
 
   return (
