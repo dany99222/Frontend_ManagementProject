@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ProjectForm from "@/components/projects/ProjectForm";
-import type { ProjectFormData } from "types";
+import type { ProjectFormData } from "@/types/index";
+import { createProject } from "@/api/ProjectAPI";
 
 export default function CreateProjectView() {
-  const initialValues : ProjectFormData = {
+  const initialValues: ProjectFormData = {
     projectName: "",
     clientName: "",
     description: "",
@@ -14,10 +15,12 @@ export default function CreateProjectView() {
     register, //Registra cada input
     handleSubmit, //Se procesa para la validacion
     formState: { errors }, //Ahi estan los errores de validacion
-  } = useForm({ defaultValues:  initialValues  });
+  } = useForm({ defaultValues: initialValues });
 
-  const handleForm = (data: ProjectFormData)   => {
-    console.log(data);
+  const handleForm = (data: ProjectFormData) => {
+    
+    // llamada a la api
+    createProject(data);
   };
 
   return (
@@ -41,10 +44,7 @@ export default function CreateProjectView() {
           onSubmit={handleSubmit(handleForm)}
           noValidate // desabilita validacion html
         >
-          <ProjectForm
-          register={register}
-          errors={errors}
-          />
+          <ProjectForm register={register} errors={errors} />
           <input
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors rounded-lg"
