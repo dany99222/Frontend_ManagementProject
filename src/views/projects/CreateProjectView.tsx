@@ -23,8 +23,9 @@ export default function CreateProjectView() {
 
   const { mutate } = useMutation({
     mutationFn: createProject,
-    onError: () => {
+    onError: (error) => {
       //si no se conecta a la api
+      toast.error(error.message);
     },
     onSuccess: (data) => {
       //se si se conecta, retorna el data
