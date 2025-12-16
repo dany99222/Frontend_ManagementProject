@@ -87,7 +87,7 @@ export default function DashboardView() {
                         </Menu.Item>
                         <Menu.Item>
                           <Link
-                            to={`/projects/:${project._id}/edit`}
+                            to={`/projects/${project._id}/edit`}
                             className="block px-3 py-1 text-sm leading-6 text-gray-900"
                           >
                             Editar Proyecto
