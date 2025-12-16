@@ -23,3 +23,6 @@ instalamos zod
 Instalamos axios
     se usa para hacer solicitudes HTTPS 
         npm i axios
+
+Instalamos Toastify para las alertas
+    npm i react-trastify

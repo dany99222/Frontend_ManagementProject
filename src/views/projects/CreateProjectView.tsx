@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import ProjectForm from "@/components/projects/ProjectForm";
 import type { ProjectFormData } from "@/types/index";
 import { createProject } from "@/api/ProjectAPI";
+import { toast } from "react-toastify";
 
 export default function CreateProjectView() {
 
@@ -20,9 +21,10 @@ export default function CreateProjectView() {
     formState: { errors }, //Ahi estan los errores de validacion
   } = useForm({ defaultValues: initialValues });
 
-  const handleForm = async (data: ProjectFormData) => {
+  const handleForm = async (formData: ProjectFormData) => {
     // llamada a la api
-    await createProject(data);
+    const data = await createProject(formData);
+    toast.success(data)
     navigate('/')
   };
 
