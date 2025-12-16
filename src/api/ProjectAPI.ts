@@ -1,33 +1,38 @@
 import api from "@/lib/axios";
-import type { ProjectFormData } from "@/types/index";
+import { dashboardProjectSchema, type ProjectFormData } from "@/types/index";
 import { isAxiosError } from "axios";
 
-// Consultas a la API 
+// Consultas a la API
 
 //Crea un projecto
 export async function createProject(formData: ProjectFormData) {
   try {
     const { data } = await api.post("/projects", formData);
-    return data
+    return data;
   } catch (error) {
-    if(isAxiosError(error) && error.response){
-  throw new Error(error.response.data.error);
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
     }
-  
   }
 }
- 
-// Obetener todos los proyectos 
+
+// Obetener todos los proyectos
 export async function getProjects() {
   try {
-    // accedemos a los datos 
+    // accedemos a los datos
     const { data } = await api.get("/projects");
-    console.log(data)
-    return data
-  } catch (error) {
-    if(isAxiosError(error) && error.response){
-  throw new Error(error.response.data.error);
+
+    //Mediante zod validamos que los datos que vienen de la api cumplen con los datos y la forma de nuestro Schema creado
+    const response = dashboardProjectSchema.safeParse(data);
+
+    // Si la respuesta es correcta retornamos los datos 
+    if (response.success) {
+      return response.data;
     }
-  
+
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
   }
 }
