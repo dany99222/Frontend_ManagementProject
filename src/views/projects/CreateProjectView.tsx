@@ -22,9 +22,11 @@ export default function CreateProjectView() {
   } = useForm({ defaultValues: initialValues });
 
   const handleForm = async (formData: ProjectFormData) => {
-    // llamada a la api
+    // Interacionn a la api
     const data = await createProject(formData);
+    // Si es correcto se activa una notoficacion
     toast.success(data)
+    //Nos retorna hacia el inicio
     navigate('/')
   };
 

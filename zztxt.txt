@@ -26,3 +26,8 @@ Instalamos axios
 
 Instalamos Toastify para las alertas
     npm i react-trastify
+
+
+Instalamos react query
+    Nos sirve para optimizar las consultas
+        npm i @tanstack/react-query
