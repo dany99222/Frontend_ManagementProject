@@ -30,4 +30,5 @@ Instalamos Toastify para las alertas
 
 Instalamos react query
     Nos sirve para optimizar las consultas
+    es un hook que guarada informacion y ver si la consulta es success
         npm i @tanstack/react-query

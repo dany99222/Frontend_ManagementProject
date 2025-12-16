@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import ProjectForm from "@/components/projects/ProjectForm";
 import type { ProjectFormData } from "@/types/index";
 import { createProject } from "@/api/ProjectAPI";
 import { toast } from "react-toastify";
 
 export default function CreateProjectView() {
-
   const navigate = useNavigate(); // para redireccionar al usuario una vez creado el proyecto
 
   const initialValues: ProjectFormData = {
@@ -21,14 +21,19 @@ export default function CreateProjectView() {
     formState: { errors }, //Ahi estan los errores de validacion
   } = useForm({ defaultValues: initialValues });
 
-  const handleForm = async (formData: ProjectFormData) => {
-    // Interacionn a la api
-    const data = await createProject(formData);
-    // Si es correcto se activa una notoficacion
-    toast.success(data)
-    //Nos retorna hacia el inicio
-    navigate('/')
-  };
+  const { mutate } = useMutation({
+    mutationFn: createProject,
+    onError: () => {
+      //si no se conecta a la api
+    },
+    onSuccess: (data) => {
+      //se si se conecta, retorna el data
+      toast.success(data); // Si es correcto se activa una notoficacion
+      navigate("/"); //Nos retorna hacia el inicio
+    },
+  });
+
+  const handleForm = (formData: ProjectFormData) => mutate(formData);
 
   return (
     <>
