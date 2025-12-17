@@ -3,20 +3,27 @@ import type { ProjectFormData } from "@/types/index";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-export default function EditProjectForm() {
+type EditProjectFromProps = {
+  data: ProjectFormData;
+};
+export default function EditProjectForm({ data }: EditProjectFromProps) {
+  // Los valorees inciiales son en base a el data que pasamos mediante props
   const initialValues: ProjectFormData = {
-    projectName: "",
-    clientName: "",
-    description: "",
+    projectName: data.projectName,
+    clientName: data.clientName,
+    description: data.description,
   };
 
+  //   Se encarga del form y las diferentes acciones
   const {
     register, //Registra cada input
     handleSubmit, //Se procesa para la validacion
     formState: { errors }, //Ahi estan los errores de validacion
   } = useForm({ defaultValues: initialValues });
 
-  const handleForm = () => {};
+  const handleForm = (formData: ProjectFormData) => {
+    console.log(formData);
+  };
 
   return (
     <>
@@ -42,7 +49,7 @@ export default function EditProjectForm() {
           <ProjectForm register={register} errors={errors} />
           <input
             type="submit"
-            value='Guardar Cambios'
+            value="Guardar Cambios"
             className="bg-blue-600 hover:bg-blue-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors rounded-lg"
           />
         </form>

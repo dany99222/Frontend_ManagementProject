@@ -16,11 +16,8 @@ export default function EditProjectView() {
     retry: false, //Lo intenta una vez y cierra conexion
   });
 
-  console.log(data);
-  console.log(isLoading);
-  console.log(isError);
 
   if (isLoading) return "Cargando...";
   if (isError) return <Navigate to="/404" />;
-  if (data) return <EditProjectForm />;
+  if (data) return <EditProjectForm data={data} />;
 }

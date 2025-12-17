@@ -45,7 +45,6 @@ export async function getProjectById(id: Project["_id"]) {
   try {
     // accedemos a los datos
     const { data } = await api.get(`/projects/${id}`);
-    console.log(data);
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
