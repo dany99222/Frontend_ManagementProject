@@ -45,15 +45,8 @@ export async function getProjectById(id: Project["_id"]) {
   try {
     // accedemos a los datos
     const { data } = await api.get(`/projects/${id}`);
-    console.log(data)
-return data
-    // //Mediante zod validamos que los datos que vienen de la api cumplen con los datos y la forma de nuestro Schema creado
-    // const response = dashboardProjectSchema.safeParse(data);
-
-    // // Si la respuesta es correcta retornamos los datos
-    // if (response.success) {
-    //   return response.data;
-    // }
+    console.log(data);
+    return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
