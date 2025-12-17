@@ -1,18 +1,35 @@
 import ProjectForm from "@/components/projects/ProjectForm";
-import type { ProjectFormData } from "@/types/index";
+import type { Project, ProjectFormData } from "@/types/index";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { updateProject } from "@/api/ProjectAPI";
+import { toast } from "react-toastify";
 
 type EditProjectFromProps = {
   data: ProjectFormData;
+  projectId: Project["_id"];
 };
-export default function EditProjectForm({ data }: EditProjectFromProps) {
+export default function EditProjectForm({
+  data,
+  projectId,
+}: EditProjectFromProps) {
   // Los valorees inciiales son en base a el data que pasamos mediante props
   const initialValues: ProjectFormData = {
     projectName: data.projectName,
     clientName: data.clientName,
     description: data.description,
   };
+
+  const { mutate } = useMutation({
+    mutationFn: updateProject,
+    onError: () => {
+
+    },
+    onSuccess: () => {
+ 
+    },
+  });
 
   //   Se encarga del form y las diferentes acciones
   const {
@@ -22,7 +39,12 @@ export default function EditProjectForm({ data }: EditProjectFromProps) {
   } = useForm({ defaultValues: initialValues });
 
   const handleForm = (formData: ProjectFormData) => {
-    console.log(formData);
+    const data = {
+      formData,
+      projectId,
+    };
+
+    mutate(data);
   };
 
   return (
