@@ -30,6 +30,7 @@ export default function AppLayout() {
         position="top-center"
         pauseOnHover={false}
         pauseOnFocusLoss={false}
+        theme="dark"
       />
     </>
   );

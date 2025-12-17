@@ -14,6 +14,10 @@ export default function EditProjectForm({
   data,
   projectId,
 }: EditProjectFromProps) {
+
+    // Importamos use navigate 
+    const navigate = useNavigate()
+
   // Los valorees inciiales son en base a el data que pasamos mediante props
   const initialValues: ProjectFormData = {
     projectName: data.projectName,
@@ -23,11 +27,12 @@ export default function EditProjectForm({
 
   const { mutate } = useMutation({
     mutationFn: updateProject,
-    onError: () => {
-
+    onError: (error) => {
+      toast.error(error.message);
     },
-    onSuccess: () => {
- 
+    onSuccess: (data) => {
+        navigate('/')
+        toast.success(data)
     },
   });
 
