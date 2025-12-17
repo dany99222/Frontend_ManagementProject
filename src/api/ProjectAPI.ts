@@ -40,7 +40,7 @@ export async function getProjects() {
   }
 }
 
-// Obetener todos los proyectos
+// Obetener proyectos por su id
 export async function getProjectById(id: Project["_id"]) {
   try {
     // accedemos a los datos
