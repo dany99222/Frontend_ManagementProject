@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 export default function ProjectDetailView() {
-//En este caso nos sirve para poner informacion en la url
-    const navigate = useNavigate()
+  //En este caso nos sirve para poner informacion en la url
+  const navigate = useNavigate();
 
   //  Podemos leer parametros de la url
   const params = useParams();
@@ -33,8 +33,10 @@ export default function ProjectDetailView() {
           <button
             type="button"
             className="bg-green-500 hover:bg-green-700 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors rounded-md"
-            onClick={()=> navigate('?newTask=true')}
-          >Agregar Tarea</button>
+            onClick={() => navigate(location.pathname + "?newTask=true")}
+          >
+            Agregar Tarea
+          </button>
         </nav>
 
         <AddTaskModal />
