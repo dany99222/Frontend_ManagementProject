@@ -33,10 +33,10 @@ export default function EditProjectForm({
       toast.error(error.message);
     },
     onSuccess: (data) => {
-      //Elimina los datos en cache de este querykey y vuelve  hacer la consulta
+      //Elimina los datos en cache de este querykey y vuelve  hacer la consulta al backend
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       queryClient.invalidateQueries({ queryKey: ["editProject", projectId] });
-      
+
       navigate("/");
       toast.success(data);
     },
