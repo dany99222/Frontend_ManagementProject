@@ -1,6 +1,9 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import TaskForm from "./TaskForm";
+import type { TaskFormData } from "@/types/index";
 
 export default function AddTaskModal() {
   //Para navegar entre paginas
@@ -14,6 +17,24 @@ export default function AddTaskModal() {
   const modalTask = queryParams.get("newTask");
   //Si existe valor, true. Si no existe, false
   const show = modalTask ? true : false;
+
+  //Valores iniciales del hook form
+  const initialvalues: TaskFormData = {
+    name: "",
+    description: "",
+  };
+
+  //   hook de use form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ defaultValues: initialvalues });
+
+
+  const handleCreateTask = (formData: TaskFormData) => {
+    console.log(formData)
+  }
 
   return (
     <>
@@ -48,14 +69,27 @@ export default function AddTaskModal() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
-                  <Dialog.Title as="h3" className="font-black text-4xl  my-5">
+                  <Dialog.Title as="h3" className="font-black text-4xl text-blue-900  my-5">
                     Nueva Tarea
                   </Dialog.Title>
 
-                  <p className="text-xl font-bold">
+                  <p className="text-xl font-bold text-gray-500">
                     Llena el formulario y crea {""}
-                    <span className="text-fuchsia-600">una tarea</span>
+                    <span className="">una tarea</span>
                   </p>
+
+                  <form
+                    className="mt-10 bg-white shadow-lg p-10 rounded-lg flex flex-col gap-5"
+                    noValidate // desabilita validacion html
+                    onSubmit={handleSubmit(handleCreateTask)}
+                  >
+                    <TaskForm register={register} errors={errors} />
+                    <input
+                      type="submit"
+                      value="Guardar"
+                      className="bg-blue-600 hover:bg-blue-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors rounded-lg text-sm md:text-lg"
+                    />
+                  </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
