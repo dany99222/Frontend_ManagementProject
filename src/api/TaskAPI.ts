@@ -7,7 +7,7 @@ type TaskAPI = {
   projectId: Project["_id"];
 };
 //Crea una tarea
-export async function createProject({
+export async function createTask({
   formData,
   projectId,
 }: Pick<TaskAPI, "formData" | "projectId">) {

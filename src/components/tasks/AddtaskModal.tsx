@@ -1,13 +1,18 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TaskForm from "./TaskForm";
 import type { TaskFormData } from "@/types/index";
+import { useMutation } from "@tanstack/react-query";
+import { createTask } from "@/api/TaskAPI";
+import { toast } from "react-toastify";
 
 export default function AddTaskModal() {
   //Para navegar entre paginas
   const navigate = useNavigate();
+
+  // Leer si un modal existe
   // se usa para leeer datos de la url (todo)
   const location = useLocation();
   //URLSearchParams: convierte ese string en algo facil de leer
@@ -17,6 +22,10 @@ export default function AddTaskModal() {
   const modalTask = queryParams.get("newTask");
   //Si existe valor, true. Si no existe, false
   const show = modalTask ? true : false;
+
+  // Obtener projectId de la url
+  const params = useParams();
+  const projectId = params.projectId!;
 
   //Valores iniciales del hook form
   const initialvalues: TaskFormData = {
@@ -28,13 +37,30 @@ export default function AddTaskModal() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ defaultValues: initialvalues });
 
+  const { mutate } = useMutation({
+    mutationFn: createTask,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      toast.success(data);
+      reset() //resetea el formulario y lo inicia
+      navigate(location.pathname, {replace: true}) // cierra el modal y nos lleva a la pagina de tasks
+    },
+  });
 
   const handleCreateTask = (formData: TaskFormData) => {
-    console.log(formData)
-  }
+    const data = {
+      formData,
+      projectId,
+    };
+
+    mutate(data)
+  };
 
   return (
     <>
@@ -69,7 +95,10 @@ export default function AddTaskModal() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
-                  <Dialog.Title as="h3" className="font-black text-4xl text-blue-900  my-5">
+                  <Dialog.Title
+                    as="h3"
+                    className="font-black text-4xl text-blue-900  my-5"
+                  >
                     Nueva Tarea
                   </Dialog.Title>
 
