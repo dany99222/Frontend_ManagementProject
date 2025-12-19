@@ -8,7 +8,7 @@ type TaskCardProps = {
 };
 
 export default function TaskCard({ task }: TaskCardProps) {
-  console.log(task);
+
   return (
     <li className="p-5 bg-white border border-slate-200 flex justify-between gap-3">
       <div className="min-w-0 flex flex-col gap-y-4">

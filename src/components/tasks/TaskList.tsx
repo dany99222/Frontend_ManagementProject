@@ -34,7 +34,7 @@ const statusStyles: { [key: string]: string } = {
 };
 
 export const TaskList = ({ tasks }: taskListProps) => {
-  console.log(tasks);
+
 
   const groupedTasks = tasks.reduce((acc, task) => {
     let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
@@ -42,7 +42,7 @@ export const TaskList = ({ tasks }: taskListProps) => {
     return { ...acc, [task.status]: currentGroup };
   }, initialStatusGroups); // Asegurarse de que el valor inicial del acumulador sea un objeto
 
-  console.log(groupedTasks);
+
 
   return (
     <>

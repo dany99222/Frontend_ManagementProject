@@ -25,6 +25,7 @@ export default function ProjectDetailView() {
   if (isLoading) return "Cargando...";
   if (isError) return <Navigate to="/404" />;
   if (data)
+   
     return (
       <>
         <h1 className="text-5xl font-black">{data.projectName}</h1>
