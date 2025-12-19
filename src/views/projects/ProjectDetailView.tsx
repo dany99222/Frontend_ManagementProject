@@ -1,6 +1,7 @@
 import { getProjectById } from "@/api/ProjectAPI";
-import AddTaskModal from "@/components/tasks/AddtaskModal";
-import EditTaskData from '@/components/tasks/EditTaskData'
+import AddTaskModal from "@/components/tasks/AddTaskModal";
+
+import EditTaskData from "@/components/tasks/EditTaskData";
 import { TaskList } from "@/components/tasks/TaskList";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -16,7 +17,7 @@ export default function ProjectDetailView() {
 
   // Hook para obtener proyectos por id
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["editProject", projectId], // Identifica dee forma unica una consulta
+    queryKey: ["project", projectId], // Identifica dee forma unica una consulta
     queryFn: () => getProjectById(projectId), //funcion que se ejecuta para obetener datos
     retry: false, //Lo intenta una vez y cierra conexion
   });
@@ -24,7 +25,6 @@ export default function ProjectDetailView() {
   if (isLoading) return "Cargando...";
   if (isError) return <Navigate to="/404" />;
   if (data)
-   
     return (
       <>
         <h1 className="text-5xl font-black">{data.projectName}</h1>
@@ -42,9 +42,9 @@ export default function ProjectDetailView() {
           </button>
         </nav>
 
-        <TaskList tasks = { data.tasks} />
+        <TaskList tasks={data.tasks} />
         <AddTaskModal />
-      <EditTaskData />
+        <EditTaskData />
       </>
     );
 }
