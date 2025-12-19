@@ -1,6 +1,7 @@
 import type { Task } from "@/types/index";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { useNavigate } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 
 type TaskCardProps = {
@@ -8,6 +9,9 @@ type TaskCardProps = {
 };
 
 export default function TaskCard({ task }: TaskCardProps) {
+
+  //Poner el id el la url el de ditar
+  const navigate = useNavigate()
 
   return (
     <li className="p-5 bg-white border border-slate-200 flex justify-between gap-3">
@@ -48,6 +52,7 @@ export default function TaskCard({ task }: TaskCardProps) {
                 <button
                   type="button"
                   className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                  onClick={()=> navigate(location.pathname + `?editTask=${task._id}`)}
                 >
                   Editar Tarea
                 </button>
