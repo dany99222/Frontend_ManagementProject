@@ -1,6 +1,11 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getTaskById } from "@/api/TaskAPI";
 import { toast } from "react-toastify";
@@ -26,17 +31,17 @@ export default function TaskModalDetails() {
   //todas las useQuery usan query key
   const { data, isError, error } = useQuery({
     queryKey: ["task", taskId],
-    queryFn: () => getTaskById({projectId, taskId}),
+    queryFn: () => getTaskById({ projectId, taskId }),
     enabled: !!taskId, //se ejecuta solo si TaskId existe
-    retry: false  //solo hace una consulta y ya
+    retry: false, //solo hace una consulta y ya
   });
 
-  if(isError){
-    toast.error(error.message, {toastId: 'error'})
-    return <Navigate to={`/projects/${projectId}`} />
+  if (isError) {
+    toast.error(error.message, { toastId: "error" });
+    return <Navigate to={`/projects/${projectId}`} />;
   }
 
-  return (
+  if(data) return (
     <>
       <Transition appear show={show} as={Fragment}>
         <Dialog
@@ -76,7 +81,7 @@ export default function TaskModalDetails() {
                     as="h3"
                     className="font-black text-4xl text-slate-600 my-5"
                   >
-                    Titulo aquí
+                    {data.name}
                   </Dialog.Title>
                   <p className="text-lg text-slate-500 mb-2">Descripción:</p>
                   <div className="my-5 space-y-3">
