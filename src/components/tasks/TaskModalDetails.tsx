@@ -6,10 +6,12 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getTaskById } from "@/api/TaskAPI";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getTaskById, updateStatus } from "@/api/TaskAPI";
 import { toast } from "react-toastify";
 import { fromatDate } from "@/utils/utils";
+import { statusTranslations } from "@/locales/es";
+import type { TaskStatus } from "@/types/index";
 
 export default function TaskModalDetails() {
   //Leemos el id del projecto
@@ -36,6 +38,35 @@ export default function TaskModalDetails() {
     enabled: !!taskId, //se ejecuta solo si TaskId existe
     retry: false, //solo hace una consulta y ya
   });
+
+  // Para invalidar la cache de las consultas 
+  const queryClient = useQueryClient();
+
+  //   Envia la actualizacion de estado a la bd
+  const { mutate } = useMutation({
+    mutationFn: updateStatus,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      toast.success(data);
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+    },
+  });
+
+  //   Toma los parametros del select y agrupa taskid y projectid
+  const hanldeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const status = e.target.value as TaskStatus;
+
+    const data = {
+      projectId,
+      taskId,
+      status,
+    };
+
+    mutate(data);
+  };
 
   if (isError) {
     toast.error(error.message, { toastId: "error" });
@@ -79,8 +110,7 @@ export default function TaskModalDetails() {
                       Agregada el: {fromatDate(data.createdAt)}{" "}
                     </p>
                     <p className="text-sm text-slate-400">
-                      Última actualización:{" "}
-                      {fromatDate(data.updatedAt)}
+                      Última actualización: {fromatDate(data.updatedAt)}
                     </p>
                     <Dialog.Title
                       as="h3"
@@ -92,7 +122,20 @@ export default function TaskModalDetails() {
                       Descripción: {data.description}
                     </p>
                     <div className="my-5 space-y-3">
-                      <label className="font-bold">Estado Actual: {data.status} </label>
+                      <label className="font-bold">Estado Actual:</label>
+                      <select
+                        className="w-full p-3 bg-white border border-gray-300"
+                        defaultValue={data.status}
+                        onChange={hanldeChange}
+                      >
+                        {Object.entries(statusTranslations).map(
+                          ([key, value]) => (
+                            <option key={key} value={key}>
+                              {value}
+                            </option>
+                          )
+                        )}
+                      </select>
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>

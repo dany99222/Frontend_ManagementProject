@@ -4,7 +4,7 @@ export const taskStatusSchema = z.enum([
   "pending",
   "onHold",
   "inProgress",
-  "underRiview",
+  "underReview",
   "completed",
 ]); 
 // Type de projects 
@@ -20,6 +20,7 @@ export const taskSchema = z.object({
 
 export type Task = z.infer<typeof taskSchema>
 export type TaskFormData = Pick<Task, 'name' | 'description'> //datos que se mandaran del form
+export type TaskStatus = z.infer<typeof taskStatusSchema> // type para los valores del select 
 
 
 // ---------------------------------------------------------------
