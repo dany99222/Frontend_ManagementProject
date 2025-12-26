@@ -35,3 +35,7 @@ Instalamos react query
 
 Instalamos tanstack 
     npm i @tanstack/react-query-devtools
+
+Instalamos chakra   
+    Nos sirve para verificar numeros 
+npm i @chakra-ui/pin-input    
