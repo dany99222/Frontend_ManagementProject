@@ -1,4 +1,17 @@
 import { z } from "zod";
+
+// Auth & Users
+export const authSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+  password_confirmation: z.string(),
+});
+
+type Auth = z.infer<typeof authSchema>;
+export type UserLoginForm = Pick<Auth, "email" | "password">;
+
+// --------------------------------------------------------------------
 // TASKS
 export const taskStatusSchema = z.enum([
   "pending",
@@ -6,8 +19,8 @@ export const taskStatusSchema = z.enum([
   "inProgress",
   "underReview",
   "completed",
-]); 
-// Type de projects 
+]);
+// Type de projects
 export const taskSchema = z.object({
   _id: z.string(),
   name: z.string(),
@@ -15,13 +28,12 @@ export const taskSchema = z.object({
   project: z.string(),
   status: taskStatusSchema,
   createdAt: z.string(),
-  updatedAt: z.string()
+  updatedAt: z.string(),
 });
 
-export type Task = z.infer<typeof taskSchema>
-export type TaskFormData = Pick<Task, 'name' | 'description'> //datos que se mandaran del form
-export type TaskStatus = z.infer<typeof taskStatusSchema> // type para los valores del select 
-
+export type Task = z.infer<typeof taskSchema>;
+export type TaskFormData = Pick<Task, "name" | "description">; //datos que se mandaran del form
+export type TaskStatus = z.infer<typeof taskStatusSchema>; // type para los valores del select
 
 // ---------------------------------------------------------------
 // PROJECTS
