@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import type{ ConfirmToken, RequestConfirmationCodeForm, UserRegistrationForm } from "../types";
+import type{ ConfirmToken, RequestConfirmationCodeForm, UserLoginForm, UserRegistrationForm } from "../types";
 
 
 // crear una cuenta 
@@ -45,3 +45,16 @@ return data
   }
 }
 
+// Hacer login
+export async function autenticateUser(formData: UserLoginForm) {
+  try {
+const url = '/auth/login'
+const {data} = await api.post<string>(url, formData)
+return data
+    
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
