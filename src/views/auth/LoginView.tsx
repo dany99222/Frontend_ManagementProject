@@ -17,20 +17,27 @@ export default function LoginView() {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const { mutate} = useMutation({
-mutationFn: autenticateUser,
-onError:(error)=>{
-  toast.error(error.message)
-},
-onSuccess:(data)=>{
-  toast.success(data)
-},
-  })
+  const { mutate } = useMutation({
+    mutationFn: autenticateUser,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      toast.success(data);
+    },
+  });
 
   const handleLogin = (formData: UserLoginForm) => mutate(formData);
 
   return (
     <>
+      <h1 className="text-3xl font-extrabold text-white">
+        Iniciar Sesion
+      </h1>
+      <p className="text-2xl font-light text-white m-5">
+        Comienza{""}
+        <span className=" text-green-500 font-bold"> Ahora</span>
+      </p>
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="space-y-8 p-10 bg-white rounded-md shadow-2xl"
@@ -78,8 +85,17 @@ onSuccess:(data)=>{
         />
       </form>
       <nav className="mt-10 flex flex-col space-y-4">
-        <Link to={'/auth/register'} className="text-center text-gray-300 font-medium">
+        <Link
+          to={"/auth/register"}
+          className="text-center text-gray-300 font-medium"
+        >
           No tienes cuenta? Crea una
+        </Link>
+        <Link
+          to={"/auth/forgot-password"}
+          className="text-center text-gray-300 font-medium"
+        >
+          Olvidaste tu Password? Restablecer
         </Link>
       </nav>
     </>
