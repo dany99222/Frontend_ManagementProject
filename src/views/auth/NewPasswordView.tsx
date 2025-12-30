@@ -17,7 +17,7 @@ export default function NewPasswordView() {
         <span className=" text-green-500 font-bold"> atravez de Email</span>
       </p>
 
-      {!isValidToken ? <NewPasswordToken token={token} setToken={setToken} setIsValidToken={setIsValidToken}  /> : <NewPasswordForm />}
+      {!isValidToken ? <NewPasswordToken token={token} setToken={setToken} setIsValidToken={setIsValidToken}  /> : <NewPasswordForm token={token} />}
     </>
   );
 }
