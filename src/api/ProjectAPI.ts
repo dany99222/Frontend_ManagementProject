@@ -22,18 +22,11 @@ export async function createProject(formData: ProjectFormData) {
 
 // Obetener todos los proyectos
 export async function getProjects() {
-  // obtenemos el token que esta guardado en localstorage
-  const token = localStorage.getItem("AUTH_TOKEN");
-  console.log(token);
 
   try {
     // accedemos a los datos y le pasamos el token de autorizacion
     // Nos trae solo los proyectos del usuario autenticado 
-    const { data } = await api.get("/projects", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const { data } = await api.get("/projects");
 
     //Mediante zod validamos que los datos que vienen de la api cumplen con los datos y la forma de nuestro Schema creado
     const response = dashboardProjectSchema.safeParse(data);
