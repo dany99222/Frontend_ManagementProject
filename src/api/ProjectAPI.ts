@@ -22,9 +22,18 @@ export async function createProject(formData: ProjectFormData) {
 
 // Obetener todos los proyectos
 export async function getProjects() {
+  // obtenemos el token que esta guardado en localstorage
+  const token = localStorage.getItem("AUTH_TOKEN");
+  console.log(token);
+
   try {
-    // accedemos a los datos
-    const { data } = await api.get("/projects");
+    // accedemos a los datos y le pasamos el token de autorizacion
+    // Nos trae solo los proyectos del usuario autenticado 
+    const { data } = await api.get("/projects", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     //Mediante zod validamos que los datos que vienen de la api cumplen con los datos y la forma de nuestro Schema creado
     const response = dashboardProjectSchema.safeParse(data);
@@ -53,8 +62,6 @@ export async function getProjectById(id: Project["_id"]) {
   }
 }
 
-
-
 type ProjectAPIType = {
   formData: ProjectFormData;
   projectId: Project["_id"];
@@ -63,9 +70,8 @@ export async function updateProject({ formData, projectId }: ProjectAPIType) {
   try {
     // Enviamos los datos
     const { data } = await api.put<string>(`/projects/${projectId}`, formData);
-  
-    return data;
 
+    return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
@@ -73,13 +79,12 @@ export async function updateProject({ formData, projectId }: ProjectAPIType) {
   }
 }
 
-// Borrar Proyecto 
-export async function deleteProject(id: Project['_id']) {
+// Borrar Proyecto
+export async function deleteProject(id: Project["_id"]) {
   try {
     // Nos retorna un mensaje
     const { data } = await api.delete<string>(`/projects/${id}`);
     return data;
-
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
