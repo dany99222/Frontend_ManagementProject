@@ -5,7 +5,7 @@ import EditTaskData from "@/components/tasks/EditTaskData";
 import { TaskList } from "@/components/tasks/TaskList";
 import TaskModalDetails from "@/components/tasks/TaskModalDetails";
 import { useQuery } from "@tanstack/react-query";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 export default function ProjectDetailView() {
   //En este caso nos sirve para poner informacion en la url
@@ -36,11 +36,18 @@ export default function ProjectDetailView() {
         <nav className="my-5 flex gap-3">
           <button
             type="button"
-            className="bg-green-500 hover:bg-green-700 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors rounded-md"
+            className="bg-green-500 hover:bg-green-600 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors rounded-md"
             onClick={() => navigate(location.pathname + "?newTask=true")}
           >
             Agregar Tarea
           </button>
+
+          <Link
+            className="bg-blue-600 hover:bg-blue-700 px-10 py-3 text-gray-100 text-xl font-bold cursor-pointer transition-colors rounded-md"
+            to={"team"}
+          >
+            Colaboradores
+          </Link>
         </nav>
 
         <TaskList tasks={data.tasks} />
