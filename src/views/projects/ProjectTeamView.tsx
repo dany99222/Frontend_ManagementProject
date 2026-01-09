@@ -1,7 +1,7 @@
 import { getProjectTeam, removeUserFromProject } from "@/api/TeamAPI";
 import AddMemberModal from "@/components/team/AddMemberModal";
 import type { TeamMember } from "@/types/index";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -16,6 +16,8 @@ export default function ProjectTeamView() {
     retry: false,
   });
 
+  const queryClient = useQueryClient()
+
   const { mutate } = useMutation({
     mutationFn: removeUserFromProject,
     onError: (error) => {
@@ -23,6 +25,7 @@ export default function ProjectTeamView() {
     },
     onSuccess: (data) => {
       toast.success(data);
+      queryClient.invalidateQueries({ queryKey: ["projectTeam", projectId] });
     },
   });
 
@@ -76,7 +79,7 @@ export default function ProjectTeamView() {
                 <button
                   type="button"
                   className="transition-colors block px-3 text-sm font-bold leading-6 text-red-500 hover:bg-red-500 hover:text-white rounded "
-                onClick={() => mutate({projectId, userId: member._id})}
+                  onClick={() => mutate({ projectId, userId: member._id })}
                 >
                   Eliminar
                 </button>
