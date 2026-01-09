@@ -1,20 +1,29 @@
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import { getProjectTeam } from "@/api/TeamAPI";
+import { getProjectTeam, removeUserFromProject } from "@/api/TeamAPI";
 import AddMemberModal from "@/components/team/AddMemberModal";
-import { useQuery } from "@tanstack/react-query";
+import type { TeamMember } from "@/types/index";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ProjectTeamView() {
   const navigate = useNavigate();
   const params = useParams();
   const projectId = params.projectId!;
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<TeamMember[]>({
     queryKey: ["projectTeam", projectId],
     queryFn: () => getProjectTeam(projectId),
     retry: false,
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: removeUserFromProject,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      toast.success(data);
+    },
   });
 
   if (isLoading) return "Cargando...";
@@ -67,6 +76,7 @@ export default function ProjectTeamView() {
                 <button
                   type="button"
                   className="transition-colors block px-3 text-sm font-bold leading-6 text-red-500 hover:bg-red-500 hover:text-white rounded "
+                onClick={() => mutate({projectId, userId: member._id})}
                 >
                   Eliminar
                 </button>

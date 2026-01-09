@@ -1,5 +1,5 @@
 import { isAxiosError } from "axios";
-import { teamMemberSchema, type Project, type TeamMember, type TeamMemberForm } from "../types";
+import {teamMembersSchema, type Project, type TeamMember, type TeamMemberForm } from "../types";
 import api from "@/lib/axios";
 
 export async function findUserByEmail({
@@ -44,10 +44,29 @@ export async function getProjectTeam(projectId: Project["_id"]) {
   try {
     const url = `/projects/${projectId}/team`;
     const { data } = await api.get(url);
-    const response = teamMemberSchema.safeParse(data)
+    const response = teamMembersSchema.safeParse(data)
     if(response.success){
         return response.data
     }
+
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
+
+export async function removeUserFromProject({
+  projectId,
+  userId,
+}: {
+  projectId: Project["_id"];
+  userId: TeamMember["_id"];
+}) {
+  try {
+    const url = `/projects/${projectId}/team/${userId}`;
+    const { data } = await api.delete<string>(url);
 
     return data;
   } catch (error) {
