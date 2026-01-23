@@ -7,6 +7,7 @@ import TaskModalDetails from "@/components/tasks/TaskModalDetails";
 import { useAuth } from "@/hooks/UseAuth";
 import { isManager } from "@/utils/policies";
 import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 export default function ProjectDetailView() {
@@ -27,14 +28,18 @@ export default function ProjectDetailView() {
     retry: false, //Lo intenta una vez y cierra conexion
   });
 
+ const canEdit = useMemo(()=> data?.manager === user?._id, [data,user])
+ console.log(canEdit)
+
   if (isLoading && authLoading) return "Cargando...";
   if (isError) return <Navigate to="/404" />;
+ 
   if (data && user)
     return (
       <>
         <h1 className="text-5xl font-black">{data.projectName}</h1>
         <p className="text-2xl font-light text-gray-500 mt-5">
-          {data.description}
+          {data.description} </p>
           {!isManager(data.manager, user._id) ? (
             <p className="bg-red-900 w-56 text-sm p-2 text-center rounded my-2 text-white">
               Eres miembro de este equipo
@@ -42,7 +47,7 @@ export default function ProjectDetailView() {
           ) :  <p className="bg-blue-900 w-56 text-sm p-2 text-center rounded my-2 text-white">
               Eres Manager de este equipo
             </p>}
-        </p>
+       
         {isManager(data.manager, user._id) && (
           <nav className="my-5 flex gap-3">
             <button
@@ -62,10 +67,10 @@ export default function ProjectDetailView() {
           </nav>
         )}
 
-        <TaskList tasks={data.tasks} />
+        <TaskList tasks={data.tasks} canEdit={canEdit} />
         <AddTaskModal />
         <EditTaskData />
-        <TaskModalDetails />
+        <TaskModalDetails canEdit={canEdit} />
       </>
     );
 }

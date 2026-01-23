@@ -13,7 +13,11 @@ import { fromatDate } from "@/utils/utils";
 import { statusTranslations } from "@/locales/es";
 import type { TaskStatus } from "@/types/index";
 
-export default function TaskModalDetails() {
+type TaskModalDetailsProps = {
+  canEdit: boolean;
+};
+
+export default function TaskModalDetails({canEdit}:TaskModalDetailsProps) {
   //Leemos el id del projecto
   const params = useParams();
   const projectId = params.projectId!;
@@ -107,23 +111,24 @@ export default function TaskModalDetails() {
                 >
                   <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                     <p className="text-sm text-slate-400">
-                      Agregada el: {fromatDate(data.createdAt)}{" "}
+                     Agregada el: {fromatDate(data.createdAt)}{" "}
                     </p>
                     <p className="text-sm text-slate-400">
-                      Última actualización: {fromatDate(data.updatedAt)}
+                   Última actualización:   {fromatDate(data.updatedAt)}
                     </p>
                     <Dialog.Title
                       as="h3"
-                      className="font-black text-4xl text-slate-600 my-5"
+                      className="font-black text-4xl text-blue-950 my-5"
                     >
                       {data.name}
                     </Dialog.Title>
                     <p className="text-lg text-slate-500 mb-2">
-                      Descripción: {data.description}
+                      {data.description}
                     </p>
                     <div className="my-5 space-y-3">
                       <label className="font-bold">Estado Actual:</label>
-                      <select
+                      
+                      {canEdit ? (<select
                         className="w-full p-3 bg-white border border-gray-300"
                         defaultValue={data.status}
                         onChange={hanldeChange}
@@ -135,7 +140,8 @@ export default function TaskModalDetails() {
                             </option>
                           )
                         )}
-                      </select>
+                      </select>) : (<><p className="border p-2">{statusTranslations[data.status]}</p> <span className="text-gray-400 text-xs text-center block ">No puedes editar</span></> )}
+                      
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
