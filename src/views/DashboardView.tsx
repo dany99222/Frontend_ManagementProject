@@ -8,6 +8,7 @@ import { deleteProject, getProjects } from "@/api/ProjectAPI";
 import { toast } from "react-toastify";
 import { generateColor } from "@/utils/color";
 import { useAuth } from "@/hooks/UseAuth";
+import { isManager } from "@/utils/policies";
 
 export default function DashboardView() {
   const { data: user, isLoading: authLoading } = useAuth();
@@ -67,10 +68,14 @@ export default function DashboardView() {
               >
                 <div className="flex min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2">
-                    {project.manager === user._id ? (
-                      <p className="font-bold text-xs uppercase bg-slate-900 text-white p-2 rounded w-40 text-center mb-2">Manager</p>
+                    {isManager(project.manager, user._id) ? (
+                      <p className="font-bold text-xs uppercase bg-slate-900 text-white p-2 rounded w-40 text-center mb-2">
+                        Manager
+                      </p>
                     ) : (
-                       <p className=" mb-2 font-bold text-xs uppercase bg-red-900 text-white p-2 rounded  w-40 text-center">miembro del equipo</p>
+                      <p className=" mb-2 font-bold text-xs uppercase bg-red-900 text-white p-2 rounded  w-40 text-center">
+                        miembro del equipo
+                      </p>
                     )}
                     <Link
                       to={`/projects/${project._id}`}
@@ -113,7 +118,7 @@ export default function DashboardView() {
                             Ver Proyecto
                           </Link>
                         </Menu.Item>
-                        {project.manager === user._id && (
+                        {isManager(project.manager, user._id)&& (
                           <>
                             <Menu.Item>
                               <Link
