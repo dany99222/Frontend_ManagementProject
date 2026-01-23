@@ -1,3 +1,4 @@
+
 import { z } from "zod";
 
 // Auth & Users
@@ -62,6 +63,7 @@ export const projectSchema = z.object({
   projectName: z.string(),
   clientName: z.string(),
   description: z.string(),
+   manager: z.string()
 });
 
 export type Project = z.infer<typeof projectSchema>; //Type paraa datos que vienen del backend
@@ -77,6 +79,8 @@ export const dashboardProjectSchema = z.array(
     projectName: true,
     clientName: true,
     description: true,
+    manager: true
+   
   })
 );
 
