@@ -13,11 +13,7 @@ import { fromatDate } from "@/utils/utils";
 import { statusTranslations } from "@/locales/es";
 import type { TaskStatus } from "@/types/index";
 
-type TaskModalDetailsProps = {
-  canEdit: boolean;
-};
-
-export default function TaskModalDetails({canEdit}:TaskModalDetailsProps) {
+export default function TaskModalDetails() {
   //Leemos el id del projecto
   const params = useParams();
   const projectId = params.projectId!;
@@ -43,7 +39,7 @@ export default function TaskModalDetails({canEdit}:TaskModalDetailsProps) {
     retry: false, //solo hace una consulta y ya
   });
 
-  // Para invalidar la cache de las consultas 
+  // Para invalidar la cache de las consultas
   const queryClient = useQueryClient();
 
   //   Envia la actualizacion de estado a la bd
@@ -109,27 +105,27 @@ export default function TaskModalDetails({canEdit}:TaskModalDetailsProps) {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
+                  <Dialog.Panel className="w-full border max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                     <p className="text-sm text-slate-400">
-                     Agregada el: {fromatDate(data.createdAt)}{" "}
+                      Agregada el: {fromatDate(data.createdAt)}{" "}
                     </p>
                     <p className="text-sm text-slate-400">
-                   Última actualización:   {fromatDate(data.updatedAt)}
+                      Última actualización: {fromatDate(data.updatedAt)}
                     </p>
                     <Dialog.Title
                       as="h3"
-                      className="font-black text-4xl text-blue-950 my-5"
+                      className="font-black text-4xl text-blue-500 my-5"
                     >
                       {data.name}
                     </Dialog.Title>
-                    <p className="text-lg text-slate-500 mb-2">
+                    <p className="text-lg text-slate-600 mb-2">
                       {data.description}
                     </p>
                     <div className="my-5 space-y-3">
                       <label className="font-bold">Estado Actual:</label>
-                      
-                      {canEdit ? (<select
-                        className="w-full p-3 bg-white border border-gray-300"
+
+                      <select
+                        className="w-full p-3 text-white bg-gray-800 border-gray-600 shadow-lg"
                         defaultValue={data.status}
                         onChange={hanldeChange}
                       >
@@ -138,11 +134,16 @@ export default function TaskModalDetails({canEdit}:TaskModalDetailsProps) {
                             <option key={key} value={key}>
                               {value}
                             </option>
-                          )
+                          ),
                         )}
-                      </select>) : (<><p className="border p-2">{statusTranslations[data.status]}</p> <span className="text-gray-400 text-xs text-center block ">No puedes editar</span></> )}
-                      
+                      </select>
                     </div>
+                    {data.completedBy && (
+                      <p className="text-sm text-gray-700 italic">
+                        <span className="font-semibold not-italic">Estado actualizado por: </span>
+                        {data.completedBy.name}
+                      </p>
+                    )}
                   </Dialog.Panel>
                 </Transition.Child>
               </div>
