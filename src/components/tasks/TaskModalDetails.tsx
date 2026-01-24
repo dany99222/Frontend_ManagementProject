@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { fromatDate } from "@/utils/utils";
 import { statusTranslations } from "@/locales/es";
 import type { TaskStatus } from "@/types/index";
+import NotesPanel from "../notes/NotesPanel";
 
 export default function TaskModalDetails() {
   //Leemos el id del projecto
@@ -138,24 +139,35 @@ export default function TaskModalDetails() {
                         )}
                       </select>
                     </div>
-                      <p className="text-xl font-bold pb-2">
-                        Historial de cambios
-                      </p>
-                    <ul className="border px-4 py-2 rounded shadow-lg ">
-          
-                      {[...data.completedBy].reverse().map((activityLog) => (
-                        <li
-                          key={activityLog._id}
-                          className="text-sm text-gray-700 italic"
-                        >
-                          <span className="font-semibold not-italic">
-                            {statusTranslations[activityLog.status]} {"→ "}
-                          </span>
-                          {activityLog.user.name}
-                        </li>
-                      ))}
-                    </ul>
+
+                    {data.completedBy.length ? (
+                      <>
+                        <p className="text-xl font-bold pb-2">
+                          Historial de cambios
+                        </p>
+                        <ul className="border px-4 py-2 rounded shadow-lg ">
+                          {[...data.completedBy]
+                            .reverse()
+                            .map((activityLog) => (
+                              <li
+                                key={activityLog._id}
+                                className="text-sm text-gray-700 italic"
+                              >
+                                <span className="font-semibold not-italic">
+                                  {statusTranslations[activityLog.status]}{" "}
+                                  {"→ "}
+                                </span>
+                                {activityLog.user.name}
+                              </li>
+                            ))}
+                        </ul>
+                      </>
+                    ) : null}
+
+                    <NotesPanel />
+                    
                   </Dialog.Panel>
+
                 </Transition.Child>
               </div>
             </div>
