@@ -32,6 +32,17 @@ export const userSchema = authSchema
   });
 export type User = z.infer<typeof userSchema>;
 
+// NOTAS
+const noteSchema = z.object({
+  _id: z.string(),
+  content: z.string(),
+  createdBy: userSchema,
+  task: z.string(),
+});
+
+export type Note = z.infer<typeof noteSchema>
+export type NoteFormData = Pick<Note, 'content'>
+
 // --------------------------------------------------------------------
 // TASKS
 export const taskStatusSchema = z.enum([
