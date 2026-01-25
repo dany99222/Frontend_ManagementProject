@@ -12,10 +12,14 @@ import RequestNewCodeView from "./views/auth/RequestNewCodeView";
 import ForgotPasswordView from "./views/auth/ForgotPasswordView";
 import NewPasswordView from "./views/auth/NewPasswordView";
 import ProjectTeamView from "./views/projects/ProjectTeamView";
+import ProfailView from "./views/profile/ProfailView";
+import ChangePassowrd from "./views/profile/ChangePassowordView";
+import PorfileLayout from "./layouts/PorfileLayout";
 
 export default function Router() {
   return (
     <BrowserRouter>
+      {/* Router App layout  */}
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<DashboardView />} index />
@@ -29,13 +33,29 @@ export default function Router() {
             path="/projects/:projectId/team"
             element={<ProjectTeamView />}
           />
+          {/* Router Porfile  */}
+          <Route element={<PorfileLayout />}>
+            <Route path="/porfile" element={<ProfailView />} />
+            <Route
+              path="/porfile/change-password"
+              element={<ChangePassowrd />}
+            />
+          </Route>
         </Route>
+
+        {/* Router Login  */}
         <Route element={<AuthLayout />}>
           <Route path="/auth/login" element={<LoginView />} />
           <Route path="/auth/register" element={<RegisterView />} />
-          <Route path="/auth/confirm-account" element={<ConfirmAccountView />} />
+          <Route
+            path="/auth/confirm-account"
+            element={<ConfirmAccountView />}
+          />
           <Route path="/auth/request-code" element={<RequestNewCodeView />} />
-          <Route path="/auth/forgot-password" element={<ForgotPasswordView />} />
+          <Route
+            path="/auth/forgot-password"
+            element={<ForgotPasswordView />}
+          />
           <Route path="/auth/new-password" element={<NewPasswordView />} />
         </Route>
       </Routes>
