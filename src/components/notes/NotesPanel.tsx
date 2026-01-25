@@ -11,10 +11,10 @@ export default function NotesPanel({ notes }: NotesPanelProps) {
     <>
       <AddNoteForm />
 
-      <div className="divide-y divide-gray-100 mt-10">
+      <div className=" mt-10">
         {notes.length ? (
           <>
-            <p className="font-bold text-2xl text-slate-600 mt-5">Notas: </p>
+            <p className="font-bold text-2xl text-slate-600 mt-5 ">Notas: </p>
             {notes.map((note) => (
               <NoteDetails key={note._id} note={note} />
             ))}
