@@ -164,7 +164,9 @@ export default function TaskModalDetails() {
                       </>
                     ) : null}
 
-                    <NotesPanel />
+                    <NotesPanel 
+                    notes={data.notes}
+                    />
                     
                   </Dialog.Panel>
 
