@@ -3,6 +3,14 @@ import type { Note } from "@/types/index";
 import { fromatDate } from "@/utils/utils";
 import { useMemo } from "react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import {
+
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { deletNote } from "@/api/NoteAPI";
+import { toast } from "react-toastify";
+import { useLocation, useParams } from "react-router-dom";
 
 type NoteDetailProps = {
   note: Note;
@@ -10,8 +18,29 @@ type NoteDetailProps = {
 
 export default function NoteDetails({ note }: NoteDetailProps) {
   const { data, isLoading } = useAuth();
-  const canDelete = useMemo(() => data?._id === note.createdBy._id, [data?._id, note.createdBy._id]);
+  const canDelete = useMemo(
+    () => data?._id === note.createdBy._id,
+    [data?._id, note.createdBy._id],
+  );
+  const params = useParams();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
+  const taskId = queryParams.get("viewTask")!;
+  const projectId = params.projectId!;
+
+  const QueryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deletNote,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      toast.success(data);
+      QueryClient.invalidateQueries({ queryKey: ["task", taskId] });
+    },
+  });
   if (isLoading) return "Cargando...";
 
   return (
@@ -29,6 +58,7 @@ export default function NoteDetails({ note }: NoteDetailProps) {
           <button
             type="button"
             className="p-2 w-full sm:w-32 font-bold text-red-600 hover:underline  uppercase text-xs rounded-md m-2"
+            onClick={() => mutate({ projectId, taskId, noteId: note._id })}
           >
             Eliminar
           </button>
