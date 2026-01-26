@@ -12,9 +12,9 @@ import RequestNewCodeView from "./views/auth/RequestNewCodeView";
 import ForgotPasswordView from "./views/auth/ForgotPasswordView";
 import NewPasswordView from "./views/auth/NewPasswordView";
 import ProjectTeamView from "./views/projects/ProjectTeamView";
-import ProfailView from "./views/profile/ProfailView";
+import ProfailView from "./views/profile/ProfileView";
 import ChangePassowrd from "./views/profile/ChangePassowordView";
-import PorfileLayout from "./layouts/PorfileLayout";
+import PorfileLayout from "./layouts/ProfileLayout";
 
 export default function Router() {
   return (
@@ -35,9 +35,9 @@ export default function Router() {
           />
           {/* Router Porfile  */}
           <Route element={<PorfileLayout />}>
-            <Route path="/porfile" element={<ProfailView />} />
+            <Route path="/profile" element={<ProfailView />} />
             <Route
-              path="/porfile/change-password"
+              path="/profile/change-password"
               element={<ChangePassowrd />}
             />
           </Route>
