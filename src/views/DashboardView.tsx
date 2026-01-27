@@ -2,19 +2,18 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 
-import { Link,  useLocation, useNavigate } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteProject, getProjects } from "@/api/ProjectAPI";
-import { toast } from "react-toastify";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getProjects } from "@/api/ProjectAPI";
+
 import { generateColor } from "@/utils/color";
 import { useAuth } from "@/hooks/UseAuth";
 import { isManager } from "@/utils/policies";
 import DeleteProjectModal from "@/components/projects/DeleteProjectModal";
 
 export default function DashboardView() {
-
-const location = useLocation()
-const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { data: user, isLoading: authLoading } = useAuth();
   // Estos 3 se utilizan y son fundamentales: UseQuery, useQueryClient, useMutation
@@ -23,23 +22,6 @@ const navigate = useNavigate()
   const { data, isLoading } = useQuery({
     queryKey: ["projects"], // Identifica dee forma unica una consulta
     queryFn: getProjects, //funcion que se ejecuta para obetener datos
-  });
-
-  // Borrar la cache y se actualice nuestro state (no guarde anda en memoria)
-  const queryClient = useQueryClient();
-
-  // State para mdificar los datos
-  const { mutate } = useMutation({
-    mutationFn: deleteProject,
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    onSuccess: (data) => {
-      toast.success(data);
-      queryClient.invalidateQueries({
-        queryKey: ["projects"],
-      });
-    },
   });
 
   if (isLoading && authLoading) return "cargando...";
@@ -123,7 +105,7 @@ const navigate = useNavigate()
                             Ver Proyecto
                           </Link>
                         </Menu.Item>
-                        {isManager(project.manager, user._id)&& (
+                        {isManager(project.manager, user._id) && (
                           <>
                             <Menu.Item>
                               <Link
@@ -137,7 +119,12 @@ const navigate = useNavigate()
                               <button
                                 type="button"
                                 className="block px-3 py-1 text-sm leading-6 text-red-500"
-                                onClick={() => navigate(location.pathname + `?deleteProject=${project._id}`)}
+                                onClick={() =>
+                                  navigate(
+                                    location.pathname +
+                                      `?deleteProject=${project._id}`,
+                                  )
+                                }
                               >
                                 Eliminar Proyecto
                               </button>
