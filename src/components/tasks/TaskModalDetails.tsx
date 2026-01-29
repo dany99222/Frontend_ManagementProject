@@ -14,6 +14,8 @@ import { statusTranslations } from "@/locales/es";
 import type { TaskStatus } from "@/types/index";
 import NotesPanel from "../notes/NotesPanel";
 
+
+
 export default function TaskModalDetails() {
   //Leemos el id del projecto
   const params = useParams();

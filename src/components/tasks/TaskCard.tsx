@@ -1,5 +1,5 @@
 import { deleteTask } from "@/api/TaskAPI";
-import type { Task } from "@/types/index";
+import type {  Taskproject } from "@/types/index";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ import { Fragment } from "react/jsx-runtime";
 import { useDraggable } from "@dnd-kit/core";
 
 type TaskCardProps = {
-  task: Task;
+  task: Taskproject;
   canEdit: boolean;
 };
 
@@ -44,6 +44,12 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px,${transform.y}px, 0 )`,
+        padding: "1.25rem",
+        backgroundColor: "#FFF",
+        width: '300px',
+        display: 'flex',
+        borderWidth: '1px',
+        borderColor: 'rgb(203 213 225 / var(---tw-border-opacity))'
       }
     : undefined;
 
@@ -56,13 +62,13 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
         style={style}
         className="min-w-0 flex flex-col gap-y-4"
       >
-        <button
-          type="button"
+        <p
+          
           className="text-xl font-bold text-slate-600 text-left hover:underline underline-offset-4 transition-all duration-200"
-          onClick={() =>   navigate(location.pathname + `?editTask=${task._id}`)}
+          
         >
           {task.name}
-        </button>
+        </p>
         <p className="text-slate-500">{task.description}</p>
       </div>
       <div className="flex shrink-0  gap-x-6">

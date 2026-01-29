@@ -1,4 +1,4 @@
-import { getProjectById } from "@/api/ProjectAPI";
+import { getFullProject} from "@/api/ProjectAPI";
 import AddTaskModal from "@/components/tasks/AddTaskModal";
 
 import EditTaskData from "@/components/tasks/EditTaskData";
@@ -24,7 +24,7 @@ export default function ProjectDetailView() {
   // Hook para obtener proyectos por id
   const { data, isLoading, isError } = useQuery({
     queryKey: ["project", projectId], // Identifica dee forma unica una consulta
-    queryFn: () => getProjectById(projectId), //funcion que se ejecuta para obetener datos
+    queryFn: () => getFullProject(projectId), //funcion que se ejecuta para obetener datos
     retry: false, //Lo intenta una vez y cierra conexion
   });
 
@@ -70,7 +70,7 @@ export default function ProjectDetailView() {
         <TaskList tasks={data.tasks} canEdit={canEdit} />
         <AddTaskModal />
         <EditTaskData />
-        <TaskModalDetails canEdit={canEdit} />
+        <TaskModalDetails />
       </>
     );
 }
