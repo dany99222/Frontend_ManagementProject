@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Fragment } from "react/jsx-runtime";
+import { useDraggable } from "@dnd-kit/core";
 
 type TaskCardProps = {
   task: Task;
@@ -13,6 +14,10 @@ type TaskCardProps = {
 };
 
 export default function TaskCard({ task, canEdit }: TaskCardProps) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: task._id,
+  });
+
   //Poner el id el la url el de ditar
   const navigate = useNavigate();
 
@@ -36,9 +41,17 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
     },
   });
 
+  const style = transform ? {} : undefined
+
   return (
     <li className="p-5 bg-white border border-slate-300 hover:border-slate-500 transition-all duration-200 flex justify-between gap-3 rounded-lg shadow hover:shadow-lg">
-      <div className="min-w-0 flex flex-col gap-y-4">
+      <div
+        {...listeners}
+        {...attributes}
+        ref={setNodeRef}
+        style={style}
+        className="min-w-0 flex flex-col gap-y-4"
+      >
         <button
           type="button"
           className="text-xl font-bold text-slate-600 text-left hover:underline underline-offset-4 transition-all duration-200"
