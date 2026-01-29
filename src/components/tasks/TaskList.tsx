@@ -92,7 +92,7 @@ export const TaskList = ({ tasks, canEdit }: taskListProps) => {
           {Object.entries(groupedTasks).map(([status, tasks]) => (
             <div key={status} className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
               <h3
-                className={`capitalize text-xl font-light border border-slate-300  bg-white p-3 border-t-8 ${statusStyles[status]}`}
+                className={`capitalize text-xl font-light border  bg-white p-3 border-t-8 ${statusStyles[status]}`}
               >
                 {statusTranslations[status]}
               </h3>
