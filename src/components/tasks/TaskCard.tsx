@@ -41,7 +41,11 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
     },
   });
 
-  const style = transform ? {} : undefined
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px,${transform.y}px, 0 )`,
+      }
+    : undefined;
 
   return (
     <li className="p-5 bg-white border border-slate-300 hover:border-slate-500 transition-all duration-200 flex justify-between gap-3 rounded-lg shadow hover:shadow-lg">
@@ -55,7 +59,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
         <button
           type="button"
           className="text-xl font-bold text-slate-600 text-left hover:underline underline-offset-4 transition-all duration-200"
-          onClick={() => navigate(location.pathname + `?viewTask=${task._id}`)}
+          onClick={() =>   navigate(location.pathname + `?editTask=${task._id}`)}
         >
           {task.name}
         </button>
