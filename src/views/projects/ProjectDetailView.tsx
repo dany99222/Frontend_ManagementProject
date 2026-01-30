@@ -25,13 +25,14 @@ export default function ProjectDetailView() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["project", projectId], // Identifica dee forma unica una consulta
     queryFn: () => getFullProject(projectId), //funcion que se ejecuta para obetener datos
+      enabled: Boolean(projectId),
     retry: false, //Lo intenta una vez y cierra conexion
   });
 
  const canEdit = useMemo(()=> data?.manager === user?._id, [data,user])
- console.log(canEdit)
 
-  if (isLoading && authLoading) return "Cargando...";
+
+  if (isLoading || authLoading) return "Cargando...";
   if (isError) return <Navigate to="/404" />;
  
   if (data && user)

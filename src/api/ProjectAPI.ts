@@ -24,10 +24,9 @@ export async function createProject(formData: ProjectFormData) {
 
 // Obetener todos los proyectos
 export async function getProjects() {
-
   try {
     // accedemos a los datos y le pasamos el token de autorizacion
-    // Nos trae solo los proyectos del usuario autenticado 
+    // Nos trae solo los proyectos del usuario autenticado
     const { data } = await api.get("/projects");
 
     //Mediante zod validamos que los datos que vienen de la api cumplen con los datos y la forma de nuestro Schema creado
@@ -49,9 +48,9 @@ export async function getProjectById(id: Project["_id"]) {
   try {
     // accedemos a los datos
     const { data } = await api.get(`/projects/${id}`);
-    const response = editProjectSchema.safeParse(data)
-    if(response.success){
-      return response.data
+    const response = editProjectSchema.safeParse(data);
+    if (response.success) {
+      return response.data;
     }
   } catch (error) {
     if (isAxiosError(error) && error.response) {
@@ -62,17 +61,30 @@ export async function getProjectById(id: Project["_id"]) {
 
 // Obetener proyectos por su id
 export async function getFullProject(id: Project["_id"]) {
+  if (!id) throw new Error("Project ID is required");
+
   try {
-    // accedemos a los datos
     const { data } = await api.get(`/projects/${id}`);
-    const response = projectSchema.safeParse(data)
-    if(response.success){
-      return response.data
+
+    // Mapear team strings a objetos con _id ficticio (o name si querés)
+    const fixedData = {
+      ...data,
+      team: data.team.map((t:  Project["_id"]) => (typeof t === "string" ? { _id: t } : t)),
+    };
+
+    const response = projectSchema.safeParse(fixedData);
+    if (!response.success) {
+      
+      throw new Error("Invalid project data from backend");
     }
+
+    return response.data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
     }
+
+    throw new Error("Unexpected error fetching project");
   }
 }
 
