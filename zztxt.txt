@@ -1,0 +1,46 @@
+Descargamos la dependencias con:
+    npm install
+
+Instalamos react router dom
+    Nos servira para manejar la navegacion y las rutas
+        npm i react-router-dom
+
+Instalamos los types de node
+    npm i -D @types/node
+        Posteriormente habilitamos en vite.config y en tsconfig.app.json
+
+instalamos headles ui y heroicons 
+    headeles trae componentes interactivos
+        npm i @headlessui/react @heroicons/react
+
+ instalamos hook form
+    npm i react-hook-form
+
+instalamos zod
+    Para la creacion de Shemas de datos y types
+        npm i zod
+
+Instalamos axios
+    se usa para hacer solicitudes HTTPS 
+        npm i axios
+
+Instalamos Toastify para las alertas
+    npm i react-trastify
+
+
+Instalamos react query
+    Nos sirve para optimizar las consultas
+    es un hook que guarada informacion y ver si la consulta es success
+        npm i @tanstack/react-query
+
+Instalamos tanstack 
+    npm i @tanstack/react-query-devtools
+
+Instalamos chakra   
+    Nos sirve para verificar numeros 
+npm i @chakra-ui/pin-input    
+
+
+Instala los estilos de css para formularios
+    npm i @tailwindcss/forms
+        y le decimos en tailwind.config.js que queremos usarlpo
