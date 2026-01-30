@@ -78,7 +78,7 @@ export const TaskList = ({ tasks, canEdit }: taskListProps) => {
         });
         return {
           ...oldData,
-          task: updatedTasks,
+          tasks: updatedTasks,
         };
       });
     }

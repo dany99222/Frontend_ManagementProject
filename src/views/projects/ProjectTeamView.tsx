@@ -16,7 +16,7 @@ export default function ProjectTeamView() {
     retry: false,
   });
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: removeUserFromProject,
@@ -57,28 +57,59 @@ export default function ProjectTeamView() {
           </Link>
         </nav>
 
-        <h2 className="text-5xl font-black my-10">Miembros actuales</h2>
+        <h2 className="text-3xl text-gray-600 font-black my-10">
+          Miembros actuales
+        </h2>
         {data.length ? (
           <ul
             role="list"
-            className="divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg"
+            className="
+    grid
+    gap-6
+    sm:grid-cols-2
+    md:grid-cols-3
+    lg:grid-cols-4
+    xl:grid-cols-5
+    mt-10
+    p-4
+  "
           >
             {data?.map((member) => (
               <li
                 key={member._id}
-                className="bg-green-50 flex justify-between gap-x-6 px-5 py-10"
+                className="
+        bg-white
+        rounded-xl
+        shadow-md
+        hover:shadow-lg
+        transition-shadow
+        p-5
+        flex flex-col justify-between
+        min-w-[200px]
+      "
               >
-                <div className="flex min-w-0 gap-x-4">
-                  <div className="min-w-0 flex-auto space-y-2">
-                    <p className="text-2xl font-black text-blue-600">
-                      {member.name}
-                    </p>
-                    <p className="text-sm text-blue-400">{member.email}</p>
-                  </div>
+                <div className="mb-4">
+                  <p className="text-xl font-bold text-blue-700 truncate">
+                    {member.name}
+                  </p>
+                  <p className="text-sm text-blue-400 truncate">
+                    {member.email}
+                  </p>
                 </div>
+
                 <button
                   type="button"
-                  className="transition-colors block px-3 text-sm font-bold leading-6 text-red-500 hover:bg-red-500 hover:text-white rounded "
+                  className="
+          mt-auto
+          w-full
+          px-4 py-2
+          text-sm font-semibold
+          text-white
+          bg-red-500
+          hover:bg-red-600
+          rounded-lg
+          transition-colors
+        "
                   onClick={() => mutate({ projectId, userId: member._id })}
                 >
                   Eliminar
