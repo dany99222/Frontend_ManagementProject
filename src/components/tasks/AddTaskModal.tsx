@@ -51,6 +51,7 @@ export default function AddTaskModal() {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["editProject", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       toast.success(data);
       reset(); //resetea el formulario y lo inicia
       navigate(location.pathname, { replace: true }); // cierra el modal y nos lleva a la pagina de tasks
