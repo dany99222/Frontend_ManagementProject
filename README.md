@@ -1,73 +1,118 @@
-# React + TypeScript + Vite
+# 📋 ProjectManagement — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Aplicación web para la gestión de proyectos y tareas, construida con React 19 y TypeScript.
 
-Currently, two official plugins are available:
+🌐 **Demo en vivo:** [frontend-management-project.vercel.app](https://frontend-management-project.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📖 Descripción
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+ProjectManagement es una aplicación frontend que permite a los usuarios gestionar proyectos y tareas de forma visual e intuitiva. Incluye funcionalidades como autenticación, gestión de tareas con drag & drop, formularios validados y notificaciones en tiempo real.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Tecnologías utilizadas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Tecnología | Versión | Descripción |
+|---|---|---|
+| React | 19 | Librería principal de UI |
+| TypeScript | 5.9 | Tipado estático |
+| Vite | 7 | Bundler y dev server |
+| Tailwind CSS | 3.4 | Estilos utilitarios |
+| React Router DOM | 7 | Enrutamiento |
+| TanStack Query | 5 | Fetching y caché de datos |
+| Axios | 1.13 | Cliente HTTP |
+| React Hook Form | 7 | Manejo de formularios |
+| Zod | 4 | Validación de esquemas |
+| DnD Kit | 6 | Drag and drop |
+| Headless UI | 2 | Componentes accesibles |
+| React Toastify | 11 | Notificaciones |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Estructura del proyecto
+
+```
+frontend/
+├── src/
+│   ├── api/            # Llamadas a la API
+│   ├── components/     # Componentes reutilizables
+│   ├── layouts/        # Layouts de la aplicación
+│   ├── lib/            # Configuración de librerías externas
+│   ├── hooks/          # Custom hooks
+│   ├── types/          # Tipos TypeScript
+│   ├── locales/        # Archivos de internacionalización (i18n)
+│   ├── utils/          # Funciones utilitarias
+│   ├── views/          # Vistas/páginas
+│   └── main.tsx        # Punto de entrada
+├── public/
+├── index.html
+├── vite.config.ts
+└── package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Instalación y uso
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerrequisitos
+
+- Node.js >= 18
+- npm o yarn
+
+### Pasos
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/dany99222/frontend.git
+cd frontend
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Configurar variables de entorno
+cp .env.example .env
+# Edita el archivo .env con la URL de tu backend
+
+# 4. Iniciar en modo desarrollo
+npm run dev
 ```
+
+### Scripts disponibles
+
+```bash
+npm run dev       # Inicia el servidor de desarrollo
+npm run build     # Compila para producción
+npm run preview   # Previsualiza el build de producción
+npm run lint      # Ejecuta ESLint
+```
+
+---
+
+## 🌍 Variables de entorno
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```env
+VITE_API_URL=http://localhost:4000/api
+```
+
+---
+
+## 📦 Deploy
+
+El frontend está desplegado en **Vercel**. Cada push a la rama `main` activa un deploy automático.
+
+---
+
+## 👤 Autor
+
+**dany99222**
+- GitHub: [@dany99222](https://github.com/dany99222)
+
+---
+
+## 📄 Licencia
+
+Este proyecto es privado. Todos los derechos reservados.
