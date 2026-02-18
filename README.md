@@ -14,18 +14,20 @@ ProjectManagement es una aplicación frontend que permite a los usuarios gestion
 
 ## 🚀 Technologies & Tools
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-![TanStack Query](https://img.shields.io/badge/TanStack_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
-![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
-![React Hook Form](https://img.shields.io/badge/React_Hook_Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)
-![Zod](https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white)
-![DnD Kit](https://img.shields.io/badge/DnD_Kit-000000?style=for-the-badge&logoColor=white)
-![Headless UI](https://img.shields.io/badge/Headless_UI-66E3FF?style=for-the-badge&logo=headlessui&logoColor=black)
-![React Toastify](https://img.shields.io/badge/React_Toastify-FFCD00?style=for-the-badge&logoColor=black)
+| Badge | Technology | Version | Description |
+|---|---|---|---|
+| ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) | React | 19 | Main UI library |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) | TypeScript | 5.9 | Static typing |
+| ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) | Vite | 7 | Bundler and dev server |
+| ![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white) | Tailwind CSS | 3.4 | Utility-first styling |
+| ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) | React Router DOM | 7 | Client-side routing |
+| ![TanStack Query](https://img.shields.io/badge/TanStack_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white) | TanStack Query | 5 | Data fetching and caching |
+| ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) | Axios | 1.13 | HTTP client |
+| ![React Hook Form](https://img.shields.io/badge/React_Hook_Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white) | React Hook Form | 7 | Form management |
+| ![Zod](https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white) | Zod | 4 | Schema validation |
+| ![DnD Kit](https://img.shields.io/badge/DnD_Kit-000000?style=for-the-badge&logoColor=white) | DnD Kit | 6 | Drag and drop |
+| ![Headless UI](https://img.shields.io/badge/Headless_UI-66E3FF?style=for-the-badge&logo=headlessui&logoColor=black) | Headless UI | 2 | Accessible components |
+| ![React Toastify](https://img.shields.io/badge/React_Toastify-FFCD00?style=for-the-badge&logoColor=black) | React Toastify | 11 | Notifications |
 
 ---
 
